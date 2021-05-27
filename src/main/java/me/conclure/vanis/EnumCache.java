@@ -16,9 +16,17 @@ final class EnumCache<E extends Enum<E>> {
     this.transformer = lookupTranformer;
     Map<String,E> temp = new HashMap<>();
     E[] constants = type.getEnumConstants();
+
     for (E constant : constants) {
-      temp.put(registrator.apply(constant),constant);
+      String apply = registrator.apply(constant);
+
+      if (apply == null) {
+        continue;
+      }
+
+      temp.put(apply,constant);
     }
+
     this.lookup = Map.copyOf(temp);
   }
 

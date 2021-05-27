@@ -21,9 +21,26 @@ public class GameServersDeserializer implements JsonDeserializer<GameServers> {
     }
 
     JsonArray jsonArray = json.getAsJsonArray();
-    for (JsonElement element : jsonArray) {
-      GameServer server = context.deserialize(element, GameServer.class);
+
+    if (jsonArray.isEmpty()) {
+      return GameServersImpl.EMTPY_GAMESERVERS;
     }
-    return null;
+
+    GameServer[] arr = new GameServer[jsonArray.size()];
+    for (int i = 0; i < jsonArray.size(); i++) {
+      GameServer server = context.deserialize(jsonArray.get(i), GameServer.class);
+
+      if (server == null) {
+        continue;
+      }
+
+      arr[i] = server;
+    }
+
+    if (arr.length == 0) {
+      return GameServersImpl.EMTPY_GAMESERVERS;
+    }
+
+    return new GameServersImpl(arr);
   }
 }

@@ -17,7 +17,7 @@ public enum GameMode {
   private static final EnumCache<GameMode> CACHE = new EnumCache<>(GameMode.class,e -> e.gameModeName, UnaryOperator.identity());
   private final String gameModeName;
 
-  private GameMode(String gameModeName) {
+  GameMode(String gameModeName) {
     this.gameModeName = gameModeName;
   }
 

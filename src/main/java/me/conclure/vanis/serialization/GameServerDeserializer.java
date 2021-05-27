@@ -1,6 +1,8 @@
 package me.conclure.vanis.serialization;
 
+import me.conclure.vanis.GameMode;
 import me.conclure.vanis.GameServer;
+import me.conclure.vanis.Region;
 
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -48,13 +50,13 @@ public class GameServerDeserializer implements JsonDeserializer<GameServer> {
     }
 
     JsonPrimitive namePrimitive = nameElement.getAsJsonPrimitive();
-    JsonPrimitive domainPrimitive = nameElement.getAsJsonPrimitive();
-    JsonPrimitive portPrimitive = nameElement.getAsJsonPrimitive();
-    JsonPrimitive gameModePrimitive = nameElement.getAsJsonPrimitive();
-    JsonPrimitive currentPlayersPrimitive = nameElement.getAsJsonPrimitive();
-    JsonPrimitive maxPlayersPrimitive = nameElement.getAsJsonPrimitive();
-    JsonPrimitive checkInUrlPrimitive = nameElement.getAsJsonPrimitive();
-    JsonPrimitive urlPrimitive = nameElement.getAsJsonPrimitive();
+    JsonPrimitive domainPrimitive = domainElement.getAsJsonPrimitive();
+    JsonPrimitive portPrimitive = portElement.getAsJsonPrimitive();
+    JsonPrimitive gameModePrimitive = gameModeElement.getAsJsonPrimitive();
+    JsonPrimitive currentPlayersPrimitive = currentPlayersElement.getAsJsonPrimitive();
+    JsonPrimitive maxPlayersPrimitive = maxPlayersElement.getAsJsonPrimitive();
+    JsonPrimitive checkInUrlPrimitive = checkInUrlElement.getAsJsonPrimitive();
+    JsonPrimitive urlPrimitive = urlElement.getAsJsonPrimitive();
 
     isValid = portPrimitive.isNumber()
         && currentPlayersPrimitive.isNumber()
@@ -84,8 +86,8 @@ public class GameServerDeserializer implements JsonDeserializer<GameServer> {
     String checkInUrlString = checkInUrlPrimitive.getAsString();
     String urlString = urlPrimitive.getAsString();
 
-    URI checkInUrlUri = null;
-    URI urlUri = null;
+    URI checkInUrlUri;
+    URI urlUri;
 
     try {
       checkInUrlUri = URI.create(checkInUrlString);
@@ -94,10 +96,8 @@ public class GameServerDeserializer implements JsonDeserializer<GameServer> {
       return null;
     }
 
-    if (!REGION_PATTERN.matcher(domainString).group()) {
-      return
-    }
+    GameMode gameMode = GameMode.get(gameModeString);
 
-    return null;
+    return new GameServerImpl(nameString,domainString,portInt,currentPlayersInt,maxPlayersInt,gameMode, Region.UNKNOWN,urlUri,checkInUrlUri);
   }
 }

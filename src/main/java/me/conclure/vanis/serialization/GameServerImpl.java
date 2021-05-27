@@ -7,7 +7,6 @@ import me.conclure.vanis.GameServer;
 import me.conclure.vanis.Region;
 
 import java.net.URI;
-import java.net.URL;
 
 final class GameServerImpl implements GameServer {
   private final String name, domain;
@@ -16,7 +15,7 @@ final class GameServerImpl implements GameServer {
   private final Region region;
   private final URI url, checkInUrl;
 
-  public GameServerImpl(String name, String domain, int port, int currentPlayers, int maxPlayers,
+  GameServerImpl(String name, String domain, int port, int currentPlayers, int maxPlayers,
       GameMode gameMode, Region region, URI url, URI checkInUrl) {
     this.name = name;
     this.domain = domain;
@@ -72,5 +71,20 @@ final class GameServerImpl implements GameServer {
   @Override
   public @NotNull Region region() {
     return this.region;
+  }
+
+  @Override
+  public String toString() {
+    return "GameServerImpl{" +
+        "name='" + name + '\'' +
+        ", domain='" + domain + '\'' +
+        ", port=" + port +
+        ", currentPlayers=" + currentPlayers +
+        ", maxPlayers=" + maxPlayers +
+        ", gameMode=" + gameMode +
+        ", region=" + region +
+        ", url=" + url +
+        ", checkInUrl=" + checkInUrl +
+        '}';
   }
 }
