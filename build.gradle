@@ -1,0 +1,25 @@
+plugins {
+    id 'java-library'
+}
+
+group 'me.conclure.vanis'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    api 'com.google.code.gson:gson:2.8.7'
+    api 'com.squareup.okhttp3:okhttp:4.9.1'
+    compileOnlyApi 'org.jetbrains:annotations:20.1.0'
+
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
